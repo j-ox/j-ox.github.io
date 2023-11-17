@@ -33,11 +33,25 @@ img {
   }
 
 
-#list {
+
+
+
+
+#leftb {
     background-color: rgb(62, 171, 235);
-    border-radius: 25px;
+    border-radius: 10px;
     position:relative;
     top:-500px;
+    left:300px;
+    width:200px;
+    height:40px;
+    box-shadow: 5px 5px 5px;
+}
+
+
+#leftlist {
+    position:relative;
+    top:-600px;
     left:300px;
     width:200px;
     height:100px;
