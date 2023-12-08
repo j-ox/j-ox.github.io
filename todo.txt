@@ -1,6 +1,0 @@
-Add project section 
-Add language proficiency 
-Add Social Media Link
-Add Discord Server Link (maybe)
-Add a section for the Cydia repo
-Add .deb section
