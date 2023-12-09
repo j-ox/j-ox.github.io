@@ -2,9 +2,9 @@ document.getElementById("submitBtn").addEventListener("click", checkInput);
 
 function checkInput() {
   var userInput = document.getElementById("inputField").value;
-  var validInput = "b";
+  var validInputs = ["8a50!b418", "c", "d"];
 
-  if (userInput === validInput) {
+  if (validInputs.includes(userInput)) {
     document.getElementById("inputForm").style.display = "none";
     document.getElementById("fullWebsite").classList.add("show");
   } else {
