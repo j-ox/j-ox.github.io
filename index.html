@@ -1,51 +1,50 @@
 <!DOCTYPE html>
-<html>
+<html oncontextmenu="return false">
 <head>
-  <title>Jox Shitty Testing World</title>
-  <style>
-    body {
-      background-color: #111;
-      color: #fff;
-      font-family: "Arial", sans-serif;
-      text-align: center;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-    }
-    
-    #fullWebsite {
-      display: none;
-    }
-    
-    #fullWebsite.show {
-      display: block;
-    }
-    
-    #fullWebsite h2 {
-      font-size: 24px;
-      margin-bottom: 20px;
-    }
-    
-    #fullWebsite p {
-      font-size: 18px;
-      margin-bottom: 20px;
-    }
-  </style>
-</head>
-<body oncontextmenu="return false">
-  <div id="fullWebsite">
-    <h2>Good job you learn how to inspect elements, happy ?</h2>
-    <p>Am just a dude, Playing a dude, Disguise as another dude.</p>
-  </div>
-  
-  <div id="inputForm">
-    <p>Enter the valid input:</p>
-    <input type="password" id="inputField">
-    <button id="submitBtn">Submit</button>
-  </div>
+  <title>Shit Box</title>
+  <link rel="stylesheet" href="index.css">
+  <link rel="icon" type="image/x-icon" href="pics/skull.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--SCRIPTS-->
+  <script>
+    /*Form Script*/
+    function submitForm() {
+    var comment = document.getElementById("comment").value;
+    // Create the webhook payload
+    var payload = {
+      embeds: [
+        {
+          
+          fields: [
+            { name: "Comment", value: comment }
+          ]
+        }
+      ]
+    };
+    // Send the payload to the Discord webhook
+    var webhookUrl = "https://discord.com/api/webhooks/1190874683697021038/QYAiqFbrtK6qfdVxjG6puVF4AjMqym5XqfuWkc5_AxMtJr80CrVkfJbtPzA629fq5wEO";
+    var request = new XMLHttpRequest();
+    request.open("POST", webhookUrl);
+    request.setRequestHeader("Content-Type", "application/json");
+    request.send(JSON.stringify(payload));
 
-  <script src="input.js"></script>
+    // Optionally, show a success message or redirect to a thank you page
+    alert("Form submitted successfully!");
+    location.reload();
+  }
+</script>
+</head>
+<body>
+    <!-- Form -->
+   
+    <div class="panel" id="panel4">
+      <form onsubmit="event.preventDefault(); submitForm();">
+   
+        <label for="comment">Comment:</label>
+        <textarea id="comment" name="comment" rows="4" cols="50"></textarea>
+   
+        <input type="submit" value="Submit">
+      </form>
+    </div>
 </body>
 </html>
