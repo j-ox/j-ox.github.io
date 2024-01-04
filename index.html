@@ -1,50 +1,72 @@
 <!DOCTYPE html>
 <html oncontextmenu="return false">
 <head>
-  <title>Shit Box</title>
-  <link rel="stylesheet" href="index.css">
-  <link rel="icon" type="image/x-icon" href="pics/skull.jpg">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!--SCRIPTS-->
-  <script>
-    /*Form Script*/
-    function submitForm() {
-    var comment = document.getElementById("comment").value;
-    // Create the webhook payload
-    var payload = {
-      embeds: [
-        {
-          
-          fields: [
-            { name: "Comment", value: comment }
-          ]
-        }
-      ]
-    };
-    // Send the payload to the Discord webhook
-    var webhookUrl = "https://discord.com/api/webhooks/1190874683697021038/QYAiqFbrtK6qfdVxjG6puVF4AjMqym5XqfuWkc5_AxMtJr80CrVkfJbtPzA629fq5wEO";
-    var request = new XMLHttpRequest();
-    request.open("POST", webhookUrl);
-    request.setRequestHeader("Content-Type", "application/json");
-    request.send(JSON.stringify(payload));
-
-    // Optionally, show a success message or redirect to a thank you page
-    alert("Form submitted successfully!");
-    location.reload();
-  }
-</script>
+    <title>Demo Form</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="index.css">
 </head>
 <body>
-    <!-- Form -->
-   
-    <div class="panel" id="panel4">
-      <form onsubmit="event.preventDefault(); submitForm();">
-   
-        <label for="comment">Comment:</label>
-        <textarea id="comment" name="comment" rows="4" cols="50"></textarea>
-   
+    <form id="infoForm">
+        <label for="computerName">Computer Name</label>
+        <input type="text" id="computerName" name="computerName" required><br><br>
+ 
+        <label for="paypalName">Paypal Name</label>
+        <input type="text" id="paypalName" name="paypalName" required><br><br>
+ 
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required><br><br>
+ 
+        <label for="webhook">Tier</label>
+        <select id="webhook" name="webhook" required>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+        </select><br><br>
         <input type="submit" value="Submit">
-      </form>
-    </div>
+    </form>
+ 
+    <script>
+        $(document).ready(function() {
+            $("#infoForm").submit(function(event) {
+                event.preventDefault();
+ 
+                const computerName = $("#computerName").val();
+                const paypalName = $("#paypalName").val();
+                const email = $("#email").val();
+                const webhook = $("#webhook").val();
+                const webhookUrl = getWebhookUrl(webhook);
+ 
+                const data = {
+                    "content": `**Computer Name:** ${computerName}\n **Paypal Name:** ${paypalName}\n **Email:** ${email}\n **Tier:** ${webhook}`
+                };
+                $.ajax({
+                    type: "POST",
+                    url: webhookUrl,
+                    data: JSON.stringify(data),
+                    contentType: "application/json",
+                    success: function() {
+                        alert("Information submitted successfully!");
+                        // Clear the form after submission
+                        $("#infoForm")[0].reset();
+                    },
+                    error: function() {
+                        alert("Failed to submit information. Please try again later.");
+                    }
+                });
+            });
+            function getWebhookUrl(webhook) {
+                const webhookUrls = {
+                    "1": "https://discord.com/api/webhooks/1190874683697021038/QYAiqFbrtK6qfdVxjG6puVF4AjMqym5XqfuWkc5_AxMtJr80CrVkfJbtPzA629fq5wEO",
+                    "2": "https://discord.com/api/webhooks/1192506001270771793/5VgpXoMoYFHKDqnmAiQJ2yORN-1__q33EIlkLrpgaQ-zebNWvzYt87k7d5QXf6cPIxV3",
+                    "3": "https://discord.com/api/webhooks/1192506004949184602/-s9439zMJR-HiJPBQuDOH2pbmOWYOvv60sjr_HZIS1eR-K521wHFY4Gc5xL0jyxg6K6p",
+                    "4": "https://discord.com/api/webhooks/1192506007675482143/e7_EBfIvKnUD8A4PX0B3mgMF60yxQPUj7urZJ6ob8kUjjuk1dJTQX_syfoHkNgUfDZ6y",
+                };
+                return webhookUrls[webhook];
+            }
+        });
+    </script>
 </body>
 </html>
